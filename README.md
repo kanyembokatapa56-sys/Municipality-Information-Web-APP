@@ -147,8 +147,4 @@ Functionality is combined into a single dashboard for simplicity
 Designed to meet all rubric requirements: UI, sorting, graphing, and data structures
 
 Author Information
-
-Student Name: Kanyembo Katapa
-Module: PROG7312
-Year: 2025
-Student ID: ST10265272
+Kanyembo Katapa
