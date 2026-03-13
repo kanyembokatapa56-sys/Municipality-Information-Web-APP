@@ -5,7 +5,7 @@ Student: Kanyembo Katapa
 
 - Overview
 
-This web application is designed to simulate a municipal service portal for the fictional "Municipality of Xheon". It allows users to:
+This web application is designed to simulate a municipal service portal for a municipality. It allows users to:
 
 View local events and announcements
 
