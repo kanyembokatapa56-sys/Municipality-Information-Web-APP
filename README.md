@@ -125,5 +125,6 @@ Functionality is combined into a single dashboard for simplicity
 
 Designed to meet all rubric requirements: UI, sorting, graphing, and data structures
 
-Author Information
-Kanyembo Katapa
+**Author Information**
+
+- Kanyembo Katapa
