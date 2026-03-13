@@ -1,7 +1,7 @@
-Municipality of Xheon — Portfolio of Evidence
+**Municipality of Xheon**
 
 A Full ASP.NET Core MVC Application
-Student: Kanyembo Katapa | Module: PROG7312 | Student ID: ST10265272
+Student: Kanyembo Katapa 
 
 - Overview
 
@@ -31,28 +31,7 @@ JavaScript (Vis.js for graphs)
 
 Custom Data Structures (Graph, Sort, etc.)
 
-- How to Run the Application
-- Prerequisites
-
-Visual Studio 2022 or newer
-
-.NET 6 SDK or later
-
-Web browser (Edge, Chrome, Firefox)
-
-- Steps
-
-Clone or unzip the solution on your local machine.
-
-Open the solution file: ST10265272_PROG7312_PortfolioOfEvidence.sln.
-
-Build the solution (Ctrl + Shift + B).
-
-Press F5 or click Start Debugging.
-
-App opens in browser at https://localhost:####.
-
-- Key Features
+**Key Features**
 1. Homepage & Navigation
 
 Welcoming banner with call-to-action buttons
