@@ -1,0 +1,83 @@
+﻿@model ReportIssueViewModel
+@using ST10265272_PROG7312_PortfolioOfEvidence.Data
+
+@{
+    ViewData["Title"] = "Report an Issue";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+@Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+<!-- 🔹 Dynamic Engagement Label -->
+<div id="engagementLabel" class="alert alert-info text-center" role="alert">
+    Let's get your issue reported!
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="ReportIssue" asp-controller="Report" enctype="multipart/form-data" method="post">
+            <div class="mb-3">
+                <label asp-for="Location" class="form-label fw-bold">Location</label>
+                <select asp-for="Location" class="form-control" required onchange="updateLabel('Great! You’ve selected a location.')">
+                    <option value="">-- Select Location --</option>
+                    <option>Cosmo City</option>
+                    <option>Voslorus</option>
+                    <option>Randfontien</option>
+                    <option>Brixton</option>
+                </select>
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Category" class="form-label fw-bold">Category</label>
+                <select asp-for="Category" class="form-control" required onchange="updateLabel('Good choice! Categorizing helps us address your issue faster.')">
+                    <option value="">-- Select Category --</option>
+                    <option>Sanitation</option>
+                    <option>Roads</option>
+                    <option>Utilities</option>
+                    <option>Electricity</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label fw-bold">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="4" required oninput="updateLabel('You’re doing great! The more detail, the better.')"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MediaAttachment" class="form-label fw-bold">Attach a photo or document</label>
+                <input asp-for="MediaAttachment" type="file" class="form-control" onchange="updateLabel('Nice! Media helps clarify the issue.')" />
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Back to Main Menu</a>
+            </div>
+
+            @if (!string.IsNullOrEmpty(Model?.StatusMessage))
+            {
+                <div class="alert alert-success mt-4" role="alert">
+                    @Model.StatusMessage
+                </div>
+            }
+
+            <p class="text-muted mt-3">Total issues submitted: <strong>@IssueRepo.Issues.Count</strong></p>
+
+                <a asp-controller="Report" asp-action="ViewAll" class="btn btn-success mt-2">View Submitted Issues</a>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function updateLabel(message) {
+            document.getElementById("engagementLabel").textContent = message;
+        }
+    </script>
+}

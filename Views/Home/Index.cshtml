@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Hero Banner Section -->
+<section class="hero-section text-white text-center" style="background:url('/images/bannerd1_12.jpg') no-repeat center center/cover; padding:100px 0;">
+    <div class="container">
+        <h1 class="display-1-4 fw-bold">Discover Local Services<br />and Community News</h1>
+        <p class="lead mt-3 mb-4">Here, you'll find comprehensive information about the municipal services, events, local government, and resources available to residents and visitors alike.</p>
+        <a href="/Events" class="btn btn-primary btn-lg me-3">Explore Now</a>
+        <a href="/News" class="btn btn-outline-light btn-lg">Recent News</a>
+    </div>
+</section>
+
+<!-- Services / Features Section -->
+<section class="features-section py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-white shadow-sm h-100 rounded">
+                    <h3>Local Services</h3>
+                    <p>Essential services provided to support and enhance the community’s daily life.</p>
+                    <a href="#" class="btn btn-sm btn-outline-primary">Learn More</a>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="p-4 bg-white shadow-sm h-100 rounded">
+                    <h3>Local Events and Announcements</h3>
+                    <p>Stay informed about exciting upcoming events and community activities.</p>
+                    <a href="/Events" class="btn btn-sm btn-outline-primary">See Events</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Icon Navigation Section -->
+<section class="icon-section py-5">
+    <div class="container">
+        <div class="row text-center g-4 justify-content-center">
+            <!-- Report Issues -->
+            <div class="col-md-4">
+                <a href="/Report/ReportIssue" class="text-decoration-none text-dark">
+                    <div class="p-3 bg-white shadow-sm rounded h-100">
+                        <img src="~/images/report-issue-svgrepo-com.png" class="mb-2" style="width: 48px;" />
+                        <h6>Report Issues</h6>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Service Request Status -->
+            <div class="col-md-4">
+                <a href="/ServiceRequest/Dashboard" class="text-decoration-none text-dark">
+                    <div class="p-3 bg-white shadow-sm rounded h-100">
+                        <img src="~/images/services-icon (1).png" class="mb-2" style="width: 48px;" />
+                        <h6>Service Request Status</h6>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+

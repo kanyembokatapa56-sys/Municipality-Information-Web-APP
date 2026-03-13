@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ST10265272_PROG7312_PortfolioOfEvidence.Models.ServiceRequestViewModel>
+@{
+    ViewData["Title"] = "Dependency-Based Resolution Order";
+}
+<h2>@ViewData["Title"]</h2>
+<ol class="list-group list-group-numbered">
+    @foreach (var request in Model)
+    {
+        <li class="list-group-item">
+            <strong>@request.RequestId</strong> - @request.Title (@request.Status)
+        </li>
+    }
+</ol>

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ST10265272_PROG7312_PortfolioOfEvidence.Models.ServiceRequestViewModel>
+@{
+    ViewData["Title"] = "Sorted Requests (BST)";
+}
+<h2>@ViewData["Title"]</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Request ID</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RequestId</td>
+                <td>@item.Title</td>
+                <td>@item.Status</td>
+                <td>@item.Priority</td>
+                <td>@item.Category</td>
+            </tr>
+        }
+    </tbody>
+</table>

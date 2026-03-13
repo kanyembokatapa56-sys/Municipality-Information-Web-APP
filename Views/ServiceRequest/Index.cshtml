@@ -1,0 +1,56 @@
+﻿@model List<ST10265272_PROG7312_PortfolioOfEvidence.Models.ServiceRequestViewModel>
+
+@{
+    ViewData["Title"] = "Service Request Status";
+}
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-4 text-primary">Service Request Status</h2>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-center mb-4 flex-wrap gap-3">
+            <a href="/ServiceRequest/Create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Create Request
+            </a>
+            <a href="/ServiceRequest/Graph" class="btn btn-outline-primary">
+                <i class="bi bi-diagram-3"></i> View Dependency Graph
+            </a>
+            <a href="/ServiceRequest/ResolutionOrder" class="btn btn-outline-warning">
+                <i class="bi bi-sort-down-alt"></i> Resolution Order
+            </a>
+            <a href="/ServiceRequest/Sorted" class="btn btn-outline-secondary">
+                <i class="bi bi-sort-alpha-down"></i> Sorted View
+            </a>
+        </div>
+
+        <!-- Service Request Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover bg-white shadow-sm">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th>Request ID</th>
+                        <th>Title</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Category</th>
+                        <th>Submitted At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.RequestId</td>
+                            <td>@item.Title</td>
+                            <td>@item.Status</td>
+                            <td>@item.Priority</td>
+                            <td>@item.Category</td>
+                            <td>@item.SubmittedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

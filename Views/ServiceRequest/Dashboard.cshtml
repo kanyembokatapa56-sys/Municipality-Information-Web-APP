@@ -1,0 +1,177 @@
+﻿@model ST10265272_PROG7312_PortfolioOfEvidence.Models.ServiceDashboardViewModel
+
+@{
+    ViewData["Title"] = "Service Request Dashboard";
+}
+
+<!-- Load Vis.js -->
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+<div class="container my-5">
+    <h2 class="text-center text-primary mb-4">Service Request Dashboard</h2>
+
+    <!-- Buttons -->
+    <div class="text-center mb-4">
+        <button class="btn btn-outline-primary me-2" onclick="showSection('status')">Status</button>
+        <button class="btn btn-outline-warning me-2" onclick="showSection('graph')">Dependency Graph</button>
+        <button class="btn btn-outline-info me-2" onclick="showSection('sorted')">Sorted View</button>
+        <button class="btn btn-outline-secondary" onclick="showSection('resolution')">Resolution Order</button>
+    </div>
+
+    <!-- STATUS SECTION -->
+    <div id="status-section">
+        <h4 class="text-secondary mb-3">All Service Requests</h4>
+        <table class="table table-bordered text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>Request ID</th>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Category</th>
+                    <th>Submitted At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AllRequests)
+                {
+                    <tr>
+                        <td>@item.RequestId</td>
+                        <td>@item.Title</td>
+                        <td>@item.Status</td>
+                        <td>@item.Priority</td>
+                        <td>@item.Category</td>
+                        <td>@item.SubmittedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- GRAPH SECTION -->
+    <div id="graph-section" style="display:none;">
+        <h4 class="text-warning text-center mb-2">Service Request Dependency Graph</h4>
+        <p class="text-muted text-center">
+            Arrows show which service requests depend on others. A → B means B cannot be started until A is completed.
+        </p>
+
+        <div id="dependency-graph" style="height: 500px; border: 1px solid #ccc;"></div>
+
+        <div class="alert alert-info mt-3">
+            <strong>How to read:</strong>
+            <ul>
+                <li><strong>Boxes</strong> represent service requests</li>
+                <li><strong>Arrows</strong> indicate dependencies</li>
+                <li><strong>Example:</strong> SR002 → SR003 means SR003 depends on SR002</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SORTED SECTION -->
+    <div id="sorted-section" style="display:none;">
+        <h4 class="text-info mb-3">Sorted by Priority</h4>
+        <ul class="list-group">
+            @foreach (var item in Model.Sorted)
+            {
+                <li class="list-group-item">
+                    <strong>@item.RequestId</strong>: @item.Title (Priority: @item.Priority)
+                </li>
+            }
+        </ul>
+    </div>
+
+    <!-- RESOLUTION ORDER SECTION -->
+    <div id="resolution-section" style="display:none;">
+        <h4 class="text-secondary mb-3">Topological Resolution Order</h4>
+        <ol class="list-group">
+            @foreach (var item in Model.ResolutionOrder)
+            {
+                <li class="list-group-item">
+                    <strong>@item.RequestId</strong>: @item.Title
+                </li>
+            }
+        </ol>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showSection(section) {
+            const sections = ['status', 'graph', 'sorted', 'resolution'];
+            sections.forEach(id => {
+                document.getElementById(id + '-section').style.display = (id === section) ? 'block' : 'none';
+            });
+        }
+
+        
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.getElementById('dependency-graph');
+            if (!container) return;
+
+            const nodes = [
+                @foreach (var request in Model.AllRequests)
+                {
+                        <text>
+                            {
+                                id: '@request.RequestId',
+                                label: '@request.RequestId',
+                                title: '@request.Title',
+                                color: '@GetNodeColor(@request.Status)'
+                            },
+                        </text>
+                }
+            ];
+
+            const edges = [
+                @foreach (var request in Model.AllRequests)
+                {
+                        if (request.DependsOnRequestIds != null)
+                        {
+                                foreach (var dep in request.DependsOnRequestIds)
+                                {
+                                        <text>{ from: '@dep', to: '@request.RequestId' },</text>
+                                }
+                        }
+                }
+            ];
+
+            const data = {
+                nodes: new vis.DataSet(nodes),
+                edges: new vis.DataSet(edges)
+            };
+
+            const options = {
+                nodes: {
+                    shape: 'box',
+                    font: { color: 'white' }
+                },
+                edges: {
+                    arrows: 'to',
+                    color: '#6c757d'
+                },
+                layout: {
+                    hierarchical: {
+                        direction: "LR",
+                        sortMethod: "directed"
+                    }
+                },
+                physics: false
+            };
+
+            new vis.Network(container, data, options);
+        });
+    </script>
+}
+
+@functions {
+    private string GetNodeColor(string status)
+    {
+        return status switch
+        {
+            "Completed" => "#28a745",
+            "In Progress" => "#ffc107",
+            "Pending" => "#dc3545", 
+            _ => "#6c757d" 
+        };
+    }
+}

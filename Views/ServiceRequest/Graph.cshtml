@@ -1,0 +1,67 @@
+﻿@model List<(string From, string To)>
+
+@{
+    ViewData["Title"] = "Service Request Dependency Graph";
+}
+
+<!-- Load vis.js from CDN -->
+<link href="https://unpkg.com/vis-network/styles/vis-network.min.css" rel="stylesheet" />
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+<section class="hero-section text-white text-center" style="background:url('/images/services-icon (1).png') no-repeat center center / contain; background-color: #343a40; padding:60px 0;">
+    <div class="container">
+        <h1 class="display-5 fw-bold">Service Request Dependency Graph</h1>
+        <p class="lead mt-2">Visualise how service requests depend on each other.</p>
+    </div>
+</section>
+
+<div class="container mt-5">
+    <a href="/ServiceRequest/Index" class="btn btn-secondary mb-4">← Back to Status</a>
+
+    <div id="graph" style="height: 500px; border: 1px solid #ccc;"></div>
+</div>
+
+<script>
+    // Prepare graph data
+    const nodes = [];
+    const edges = [];
+
+    // Avoid duplicates
+    const nodeSet = new Set();
+
+    @foreach (var edge in Model)
+    {
+            <text>
+                if (!nodeSet.has("@edge.From")) {
+                    nodes.push({ id: '@edge.From', label: '@edge.From' });
+                    nodeSet.add("@edge.From");
+                }
+                if (!nodeSet.has("@edge.To")) {
+                    nodes.push({ id: '@edge.To', label: '@edge.To' });
+                    nodeSet.add("@edge.To");
+                }
+                edges.push({ from: '@edge.From', to: '@edge.To', arrows: 'to' });
+            </text>
+    }
+
+    // Initialize the network
+    const container = document.getElementById('graph');
+    const data = {
+        nodes: new vis.DataSet(nodes),
+        edges: new vis.DataSet(edges)
+    };
+    const options = {
+        layout: {
+            hierarchical: {
+                direction: "UD",
+                sortMethod: "directed"
+            }
+        },
+        edges: {
+            smooth: true,
+            arrows: { to: { enabled: true, scaleFactor: 1 } }
+        },
+        physics: false
+    };
+    const network = new vis.Network(container, data, options);
+</script>
