@@ -117,7 +117,7 @@ File Structure
         - Sorted.cshtml
         - Graph.cshtml (now integrated into Dashboard)
 
-Final Notes
+**Final Notes**
 
 Every page was styled with user-friendliness in mind
 
