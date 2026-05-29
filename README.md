@@ -1,130 +1,211 @@
-**Municipality of Xheon**
+# Municipality of Xheon
 
-A Full ASP.NET Core MVC Application
-Student: Kanyembo Katapa 
+## Municipal Service Management System 
 
-- Overview
 
-This web application is designed to simulate a municipal service portal for a municipality. It allows users to:
+A full-stack ASP.NET Core MVC web application designed to simulate a digital municipal service portal where residents can view announcements, report issues, and track service requests through a structured dashboard.
 
-View local events and announcements
+This project focuses on solving a common public service problem: municipal information and service requests are often scattered, manual, and difficult to prioritise. Municipality of Xheon brings these processes into one web-based platform, allowing users to interact with municipal services more clearly while giving the system a structured way to manage, sort, and visualise requests.
 
-Report issues directly
+* [Watch Demo Part 1 on YouTube](https://www.youtube.com/watch?v=gerExUG54CQ)
 
-Track and manage service requests
+* [Watch Demo Part 2 on YouTube](https://www.youtube.com/watch?v=Ut_h6xTyjk8)
 
-Visualize dependencies between service requests
+---
 
-View priority and resolution ordering using sorting and graphs
+## Project Overview
 
-Interact with an intuitive UI tailored for everyday users
+Municipality of Xheon allows users to:
 
-- Technologies Used
+* View local events and municipal announcements
+* Report service issues such as road damage, outages, or public maintenance problems
+* Track and manage service requests
+* View request priority and resolution order
+* Visualise dependencies between service requests using an interactive graph
+* Navigate through a clean, user-friendly interface designed for everyday users
 
-ASP.NET Core MVC (Razor Pages)
+The goal was to create a municipal portal that is not only functional, but also easy to understand for residents and useful for managing service-related workflows.
 
-C# / .NET 6
+---
 
-HTML, CSS, Bootstrap 5
+## Problem the Project Solves
 
-JavaScript (Vis.js for graphs)
+Municipal service requests can become difficult to manage when information is handled manually or spread across separate systems.
 
-Custom Data Structures (Graph, Sort, etc.)
+For example:
 
-**Key Features**
-1. Homepage & Navigation
+* Residents may not know where to report issues
+* Municipal teams may struggle to identify urgent requests
+* Some service requests may depend on others being completed first
+* Manual tracking can make it harder to understand priority and resolution order
 
-Welcoming banner with call-to-action buttons
+This project addresses those issues by creating a central web application where municipal information, issue reporting, request tracking, priority sorting, and dependency visualisation are handled in one place.
 
-Easy access to services, events, and issue reporting
+---
 
-Uses Bootstrap for a clean and responsive layout
+## Key Features
 
-2. Event Listing
+### Homepage and Navigation
 
-Displays current events and announcements
+* Built a welcoming homepage with clear call-to-action buttons
+* Provided simple navigation to events, announcements, issue reporting, and service request features
+* Used Bootstrap to support a clean and responsive layout
 
-Uses static data or future event repository integration
+### Events and Announcements
 
-3. Report Issue Page
+* Created an event listing section where users can view municipal events and public announcements
+* Designed the section to support future expansion into a dynamic event repository
 
-Allows users to report municipal issues (e.g., road damage, power outages)
+### Report Issue Page
 
-Validates input and stores issues
+* Built a report issue feature that allows residents to submit municipal problems such as road damage, outages, or maintenance concerns
+* Added input validation to help ensure submitted issue details are usable and structured
+* Stored reported issues for tracking and management
 
-4. Service Request Dashboard
+### Service Request Dashboard
 
-A single page that integrates:
+Built a single dashboard that combines multiple service management views, including:
 
-Status Table of all service requests
+* A status table of service requests
+* A priority-based sorted view
+* A dependency graph
+* A resolution order based on topological sorting
 
-Dependency Graph (interactive)
+This dashboard helps make service requests easier to understand, prioritise, and manage.
 
-Sorted View (by priority)
+---
 
-Resolution Order (topological sort)
+## Data Structures and Logic
 
-- Data Structures & Their Purpose
-Structure	Purpose	Contribution
-List<T>	Holds all service requests and events	Dynamic storage, ideal for iteration and sorting
-Graph (Adjacency List)	Models dependency between service requests	Enables graph traversal and visual dependency graphs
-Topological Sort (DFS)	Determines resolution order	Ensures dependent tasks are resolved correctly
-Priority Sort (OrderBy)	Sorts requests by urgency	Allows the municipality to handle high-priority tasks first
-- Example: Graph-Based Resolution
+This project uses custom data structures to support service request management and prioritisation.
 
-If Request B depends on A, the system ensures A is completed before B. This is visualized using a vis.js network graph and implemented using a DFS topological sort in the backend.
+| Data Structure / Logic | Purpose                                      | Outcome                                                                 |
+| ---------------------- | -------------------------------------------- | ----------------------------------------------------------------------- |
+| `List<T>`              | Stores service requests and events           | Allows requests and events to be added, displayed, filtered, and sorted |
+| Graph / Adjacency List | Models dependencies between service requests | Helps show which requests depend on others                              |
+| DFS Topological Sort   | Determines resolution order                  | Ensures dependent tasks are resolved in the correct sequence            |
+| Priority Sorting       | Sorts service requests by urgency            | Helps high-priority issues appear first                                 |
+| Vis.js Graph           | Displays request dependencies visually       | Makes complex relationships easier to understand                        |
 
-- Graph & Visualization
+---
 
-Uses Vis.js
- to render an intuitive dependency graph
+## Example: Dependency-Based Resolution
 
-Arrows show which requests rely on others
+If one service request depends on another, the system can model that relationship using a graph.
 
-Graph is labeled for clarity (Request ID, Title)
+For example:
 
-Styled with color-coded boxes for accessibility
+If **Request B** depends on **Request A**, the system ensures that **Request A** is resolved first.
 
-File Structure
+This is handled through graph-based logic and visualised using an interactive Vis.js network graph, making it easier to see how service requests are connected.
+
+---
+
+## Technologies Used
+
+* ASP.NET Core MVC
+* C# / .NET 6
+* HTML
+* CSS
+* Bootstrap 5
+* JavaScript
+* Vis.js
+* Custom data structures
+* Graph traversal
+* Sorting algorithms
+* Topological sort
+
+---
+
+## Technical Highlights
+
+* Developed a web-based municipal service portal with events, announcements, issue reporting, and service request tracking.
+* Built a dashboard that combines request status, priority sorting, dependency visualisation, and resolution ordering in one place.
+* Implemented graph-based dependency tracking to show how service requests relate to one another.
+* Used DFS topological sorting to determine a logical resolution order for dependent requests.
+* Applied priority sorting to help urgent service requests appear first.
+* Designed a responsive user interface using Bootstrap, HTML, CSS, and JavaScript.
+* Structured the project using controllers, models, views, repositories, and custom data structure classes.
+
+---
+
+## Project Structure
+
+```text
 /Controllers
-    - HomeController.cs
-    - EventsController.cs
-    - ReportController.cs
-    - ServiceRequestController.cs
+    HomeController.cs
+    EventsController.cs
+    ReportController.cs
+    ServiceRequestController.cs
 
 /Models
-    - EventViewModel.cs
-    - ReportIssueViewModel.cs
-    - ServiceRequestViewModel.cs
-    - ServiceDashboardViewModel.cs
+    EventViewModel.cs
+    ReportIssueViewModel.cs
+    ServiceRequestViewModel.cs
+    ServiceDashboardViewModel.cs
 
 /Data
-    - ServiceRequestRepo.cs
-    - EventRepo.cs
-    - IssueRepo.cs
-    - Structures/
-        - BinarySearchTree.cs (if used)
-        - ServiceRequestGraph.cs
+    ServiceRequestRepo.cs
+    EventRepo.cs
+    IssueRepo.cs
+    /Structures
+        ServiceRequestGraph.cs
+        BinarySearchTree.cs
 
 /Views
-    - Shared/
-    - Home/
-    - Events/
-    - Report/
-    - ServiceRequest/
-        - Dashboard.cshtml (Main View)
-        - Create.cshtml
-        - Sorted.cshtml
-        - Graph.cshtml (now integrated into Dashboard)
+    /Shared
+    /Home
+    /Events
+    /Report
+    /ServiceRequest
+        Dashboard.cshtml
+        Create.cshtml
+        Sorted.cshtml
+        Graph.cshtml
+```
 
-**Final Notes**
+---
 
-Every page was styled with user-friendliness in mind
+## Outcome
 
-Functionality is combined into a single dashboard for simplicity
+The final application provides a structured digital platform for municipal interaction.
 
-Designed to meet all rubric requirements: UI, sorting, graphing, and data structures
+Residents can view announcements, report issues, and access service request information, while the system supports request prioritisation, dependency tracking, and resolution ordering.
 
-**Author Information**
+From a development perspective, the project demonstrates practical experience with ASP.NET Core MVC, C#, responsive UI design, custom data structures, graph traversal, sorting logic, and dashboard-based web application development.
 
-- Kanyembo Katapa
+---
+
+## What I Learned
+
+Through this project, I strengthened my understanding of:
+
+* ASP.NET Core MVC application structure
+* Controller, model, view, and repository separation
+* Building user-friendly web interfaces
+* Applying data structures in a real application scenario
+* Using graphs to model real-world dependencies
+* Sorting and prioritising service request data
+* Creating dashboards that make information easier to understand
+* Writing code that connects user interaction with backend logic
+
+---
+
+## Future Improvements
+
+Possible improvements include:
+
+* Adding user authentication and role-based access
+* Storing events, issues, and service requests in a relational database
+* Adding admin controls for managing submitted issues
+* Sending email or SMS notifications when request statuses change
+* Adding real-time updates to the service request dashboard
+* Improving analytics around request volume, priority, and resolution time
+
+---
+
+## Author
+
+**Kanyembo Katapa**
+Computer and Information Sciences in Application Development Graduate
+
